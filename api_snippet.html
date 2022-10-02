@@ -5,11 +5,17 @@
 
 function search_results() {
 var search_term = document.getElementById('fname').value	
-console.log(search_term);	
+
+// Clean up
+const myNode = document.getElementById("picture");
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.lastChild);
+  }
+
 var url = "https://images-api.nasa.gov/search?q=" + search_term + '&media_type=image';
 
 var xhr = new XMLHttpRequest();
-xhr.open("GET", url, false);
+xhr.open("GET", url, true);
 const image_url_list = []
 const description_list = []
 
@@ -19,57 +25,34 @@ xhr.onreadystatechange = function () {
       resp_json = xhr.responseText;
       var json = JSON.parse(resp_json);
       var items = json.collection.items;
-      for (i=0; i < items.length; i++) {
-    	  itm = items[i];
+      list_size = 20;
+ 
+      var small_items = items.slice(0, list_size)
+      for (i=0; i < small_items.length; i++) {
+    	  itm = small_items[i];
     	  item_nasa_id = itm.data[0].nasa_id;;
     	  image_url_list.push(item_nasa_id);
     	  item_description = itm.data[0].title;
     	  description_list.push(item_description);
+    	  thumbnail_pic = itm.links[0].href;
+    	  console.log(thumbnail_pic);
+    	  var picdiv = document.getElementById("picture");
+    	  var elem = document.createElement('div');
+		  elem.id = item_nasa_id;
+		  elem.title = item_description;
+		  //document.body.appendChild(elem);
+		  picdiv.appendChild(elem);
+		  tmpImage = new Image();
+		  tmpImage.src = thumbnail_pic;
+		  document.getElementById(item_nasa_id).append(tmpImage);
     	  
-      }
-      image_results(image_url_list, description_list);     
+      }  
    }};
 
 xhr.send();
 
 }
 
-
-function image_results(img_list, desc_list) {
-	list_size = 10;
-	small_img_list = img_list.slice(0, list_size)
-	
-	for (i=0; i< small_img_list.length; i++) {
-		img_search_result(img_list[i], desc_list[i])
-	}
-}
-
-function img_search_result(nasa_id, image_desc) {
-	var url = 'https://images-api.nasa.gov/asset/' + nasa_id;
-	var xhr2 = new XMLHttpRequest();
-	xhr2.open("GET", url, false);
-
-	xhr2.onreadystatechange = function () {
-		
-	   if (xhr2.readyState === 4) {
-	      resp_json = xhr2.responseText;
-	      var json = JSON.parse(resp_json);
-		  var items = json.collection.items;
-		  var thumbnail_img = items[items.length - 2];
-		  console.log(thumbnail_img.href);
-		  var elem = document.createElement('div');
-		  elem.id = nasa_id;
-		  elem.title = image_desc;
-		  document.body.appendChild(elem);
-		  tmpImage = new Image();
-		  tmpImage.src = thumbnail_img.href;
-		  document.getElementById(nasa_id).append(tmpImage);
-	      
-	   }};
-
-	xhr2.send();
-
-	}
 
 </script>
 
