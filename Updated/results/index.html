@@ -14,28 +14,17 @@
   html,body {
     margin: 30px;
   }
-  .img-fluid {
-    max-width: 250px;
-    max-height: 250px;
-    min-width: 250px;
-    min-height: 250px;
-  }
 </style>
 </head>
 
 <body>
-  <h4><b>Select image and tell us what do you want to do with it(prompt)</b></h4><br>
-  <form>
-    <div class="form-group">
-      <label for="exampleInputEmail1">What to do with the selected image?</label>
-      <input type="text" class="form-control" id="Action" aria-describedby="emailHelp" placeholder="">
+  Select image and tell us what do you want to do with it(prompt)
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="What do you want to do?" aria-label="What do you want to do?" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="button" id="button-addon2">Submit</button>
     </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">API KEY</label>
-      <input type="password" class="form-control" id="APIKEY" placeholder="API KEY">
-    </div><br>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  </div>
   <div class="row p-5">
     <div class="col-sm">
         <div class="custom-control custom-radio image-checkbox">
@@ -49,7 +38,7 @@
         <div class="custom-control custom-radio image-checkbox">
             <input type="radio" class="custom-control-input" id="ck2b" name="ck2">
             <label class="custom-control-label" for="ck2b">
-                <img src="https://moon.nasa.gov/system/news_items/main_images/155_WaterOnTheMoonFull.jpg" alt="#" class="img-fluid">
+                <img src="https://www.jpl.nasa.gov/edu/images/news/apollo11_main.jpg" alt="#" class="img-fluid">
             </label>
         </div>
     </div>
